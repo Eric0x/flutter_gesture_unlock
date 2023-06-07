@@ -14,16 +14,17 @@ class UnlockPointPainter extends CustomPainter {
   final Color failedColor;
   final Color disableColor;
 
-  UnlockPointPainter(
-      {this.type,
-      this.points,
-      this.radius,
-      this.solidRadius,
-      this.lineWidth,
-      this.defaultColor,
-      this.selectedColor,
-      this.failedColor,
-      this.disableColor});
+  UnlockPointPainter({
+    required this.type,
+    required this.points,
+    required this.radius,
+    required this.solidRadius,
+    required this.lineWidth,
+    required this.defaultColor,
+    required this.selectedColor,
+    required this.failedColor,
+    required this.disableColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {

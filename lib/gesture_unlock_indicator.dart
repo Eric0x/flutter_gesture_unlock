@@ -24,13 +24,14 @@ class GestureUnlockIndicator extends StatefulWidget {
 
   final _GestureUnlockIndicatorState _state = _GestureUnlockIndicatorState();
 
-  GestureUnlockIndicator(
-      {this.size,
-      this.roundSpace,
-      this.roundSpaceRatio = 0.5,
-      this.strokeWidth = 1,
-      this.defaultColor = Colors.grey,
-      this.selectedColor = Colors.blue});
+  GestureUnlockIndicator({
+    required this.size,
+    required this.roundSpace,
+    this.roundSpaceRatio = 0.5,
+    this.strokeWidth = 1,
+    this.defaultColor = Colors.grey,
+    this.selectedColor = Colors.blue,
+  });
 
   void setSelectPoint(List<int> selected) {
     _state.setSelectPoint(selected);
@@ -43,8 +44,12 @@ class GestureUnlockIndicator extends StatefulWidget {
 }
 
 class _GestureUnlockIndicatorState extends State<GestureUnlockIndicator> {
-  List<UnlockPoint> _rounds = List<UnlockPoint>(9);
-  double _radius;
+  List<UnlockPoint> _rounds = List<UnlockPoint>.filled(
+      9, UnlockPoint(x: 0, y: 0, position: 0),
+      growable: true);
+// List<UnlockPoint>(9);
+
+  double _radius = 0;
 
   @override
   void initState() {

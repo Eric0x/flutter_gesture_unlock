@@ -54,10 +54,10 @@ class GestureUnlockView extends StatefulWidget {
   final Function(List<int>, UnlockStatus) onCompleted;
 
   GestureUnlockView({
-    @required this.size,
+    required this.size,
     this.type = UnlockType.solid,
     this.padding = 10,
-    this.roundSpace,
+    required this.roundSpace,
     this.roundSpaceRatio = 0.6,
     this.defaultColor = Colors.grey,
     this.selectedColor = Colors.blue,
@@ -67,7 +67,7 @@ class GestureUnlockView extends StatefulWidget {
     this.solidRadiusRatio = 0.4,
     this.touchRadiusRatio = 0.6,
     this.delayTime = 500,
-    this.onCompleted,
+    required this.onCompleted,
   });
   final GestureState _state = GestureState();
 
@@ -92,14 +92,16 @@ class GestureUnlockView extends StatefulWidget {
 class GestureState extends State<GestureUnlockView> {
   UnlockStatus _status = UnlockStatus.normal;
 
-  final List<UnlockPoint> points = List<UnlockPoint>(9);
+  final List<UnlockPoint> points = List<UnlockPoint>.filled(
+      9, UnlockPoint(x: 0, y: 0, position: 0),
+      growable: true);
 
   final List<UnlockPoint> pathPoints = [];
-  UnlockPoint curPoint;
-  double _radius;
-  double _solidRadius;
-  double _touchRadius;
-  Timer _timer;
+  UnlockPoint curPoint = UnlockPoint(x: 0, y: 0, position: 0);
+  late double _radius;
+  late double _solidRadius;
+  late double _touchRadius;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -111,7 +113,7 @@ class GestureState extends State<GestureUnlockView> {
   void deactivate() {
     super.deactivate();
     if (_timer?.isActive == true) {
-      _timer.cancel();
+      _timer?.cancel();
     }
   }
 
@@ -220,7 +222,7 @@ class GestureState extends State<GestureUnlockView> {
   }
 
   void _onPanUpdate(DragUpdateDetails e, BuildContext context) {
-    RenderBox box = context.findRenderObject();
+    RenderBox? box = context.findRenderObject() as RenderBox;
     Offset offset = box.globalToLocal(e.globalPosition);
     _slideDealt(offset);
     setState(() {

@@ -11,13 +11,14 @@ class UnlockLinePainter extends CustomPainter {
   final double lineWidth;
   final UnlockPoint curPoint;
 
-  UnlockLinePainter(
-      {@required this.pathPoints,
-      @required this.status,
-      @required this.selectColor,
-      @required this.failedColor,
-      @required this.lineWidth,
-      @required this.curPoint});
+  UnlockLinePainter({
+    required this.pathPoints,
+    required this.status,
+    required this.selectColor,
+    required this.failedColor,
+    required this.lineWidth,
+    required this.curPoint,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
